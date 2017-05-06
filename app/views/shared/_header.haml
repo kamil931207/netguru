@@ -2,7 +2,7 @@
   .container-fluid
     .navbar-header
       .navbar-brand
-        = link_to image_tag("logo.png",:size => "43x50"), root_path
+      = link_to image_tag("logo.png",:size => "43x50"), root_path
     %ul.nav.navbar-nav.pull-right
       %li
         = link_to 'Home', root_path
@@ -10,10 +10,6 @@
         = link_to 'About', about_path
       %li
         = link_to 'Cookies', cookies_path
+      = show_admin_categories_link.html_safe if current_user_is_admin
       %li
-        / tak powinno to być oznaczone
-        / - wykonuje ruby i nie zwraca do widoku
-        - if current_user
-          = link_to 'Logout', destroy_user_session_path, method: :delete
-        - else
-          = link_to 'Login', new_user_session_path
+        = login_or_logout_user_link
