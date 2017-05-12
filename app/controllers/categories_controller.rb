@@ -1,7 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :fetch_category, only: [:show, :edit, :update, :destroy]
 
-
   def index
   	# binding.pry
   	@categories = Category.all
