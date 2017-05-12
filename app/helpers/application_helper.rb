@@ -16,6 +16,7 @@ module ApplicationHelper
   end
 
   def show_admin_categories_link
-      "<li>#{link_to 'Categories', categories_path}</li>" 
+    categories_link_tag = "<li>#{link_to 'Categories', categories_path}</li>"
+    categories_link_tag.html_safe if current_user_is_admin
   end
 end
