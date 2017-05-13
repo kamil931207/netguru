@@ -1,0 +1,7 @@
+%p= button_to "New post", new_post_path, method: :get, class: 'btn btn-secondary' if current_user
+%p List of posts:
+%ul
+  - @posts.each do |post|
+    %li
+      = link_to post.title, post
+      = link_to 'Edit', edit_post_path(post) if post_owner(post)

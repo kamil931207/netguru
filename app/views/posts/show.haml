@@ -1,0 +1,8 @@
+%h3
+  = @post.title
+%p
+  Expiration date:
+  %input.form-control{:placeholder => @post.expiration_date.to_date, :readonly => "readonly", :type => "text", :style => "width: 200px"}/
+  Description:
+  %input.form-control{:placeholder => @post.description, :readonly => "readonly", :type => "text", :style => "width:  200px "}/
+  = button_to "Edit", edit_post_path(@post), method: :get, class: 'btn btn-secondary'  if post_owner(@post)
