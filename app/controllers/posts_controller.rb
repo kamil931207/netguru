@@ -16,13 +16,14 @@ class PostsController < ApplicationController
   def create
     return unless post_params[:user_id]== current_user.id.to_s
     @post = Post.new(post_params)
-    if @post.save
+    if @post.valid?
+      @post.save
       flash[:notice] = 'Post created'
       # redirect_back(fallback_location: root_path)
       # przekierowanie gdzies
       redirect_to @post
     else
-      flash[:alert] = 'Post not created'
+      flash[:errors] = @post.errors.full_messages
       redirect_back(fallback_location: root_path)
     end
   end
@@ -33,7 +34,14 @@ class PostsController < ApplicationController
 
   def update
     @post.update_attributes(post_params)
-    redirect_to @post
+    if @post.valid?
+      @post.save
+      flash[:notice] = 'Post updated'
+      redirect_to @post
+    else
+      flash[:errors] = @post.errors.full_messages
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def edit; end
