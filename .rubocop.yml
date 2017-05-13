@@ -30,3 +30,5 @@ Style/DotPosition:
   EnforcedStyle: leading
 Style/FrozenStringLiteralComment:
   Enabled: false
+Style/FileName:
+  Enabled: false
