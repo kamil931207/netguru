@@ -19,8 +19,6 @@ class PostsController < ApplicationController
     if @post.valid?
       @post.save
       flash[:notice] = 'Post created'
-      # redirect_back(fallback_location: root_path)
-      # przekierowanie gdzies
       redirect_to @post
     else
       flash[:errors] = @post.errors.full_messages
@@ -35,9 +33,7 @@ class PostsController < ApplicationController
   def update
     @post.update_attributes(post_params)
     if @post.valid?
-      @post.save
-      flash[:notice] = 'Post updated'
-      redirect_to @post
+      create_post
     else
       flash[:errors] = @post.errors.full_messages
       redirect_back(fallback_location: root_path)
@@ -53,6 +49,12 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def create_post
+    @post.save
+    flash[:notice] = 'Post updated'
+    redirect_to @post
+  end
 
   def post_params
     params.require(:post).permit(:title, :description, :expiration_date, :user_id)
