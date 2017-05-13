@@ -16,14 +16,7 @@ class PostsController < ApplicationController
   def create
     return unless post_params[:user_id]== current_user.id.to_s
     @post = Post.new(post_params)
-    if @post.valid?
-      @post.save
-      flash[:notice] = 'Post created'
-      redirect_to @post
-    else
-      flash[:errors] = @post.errors.full_messages
-      redirect_back(fallback_location: root_path)
-    end
+    @post.valid? ? create_post : handle_post_validation_failed
   end
 
   def show
@@ -32,12 +25,7 @@ class PostsController < ApplicationController
 
   def update
     @post.update_attributes(post_params)
-    if @post.valid?
-      create_post
-    else
-      flash[:errors] = @post.errors.full_messages
-      redirect_back(fallback_location: root_path)
-    end
+    @post.valid? ? update_post : handle_post_validation_failed
   end
 
   def edit; end
@@ -50,7 +38,18 @@ class PostsController < ApplicationController
 
   private
 
+  def handle_post_validation_failed
+    flash[:errors] = @post.errors.full_messages
+    redirect_back(fallback_location: root_path)
+  end
+
   def create_post
+    @post.save
+    flash[:notice] = 'Post created'
+    redirect_to @post
+  end
+
+  def update_post
     @post.save
     flash[:notice] = 'Post updated'
     redirect_to @post
