@@ -23,6 +23,7 @@ class CategoriesController < ApplicationController
 
   def update
   	@category.update_attributes(category_params)
+    flash[:notice] = 'Category updated'
   	redirect_to @category
   end
 

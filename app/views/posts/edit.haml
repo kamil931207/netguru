@@ -3,3 +3,4 @@
   = @post.title
 %p
   = render 'form'
+  = button_to "Delete", @post, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger', display: 'inline'

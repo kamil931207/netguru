@@ -3,3 +3,4 @@
   = @category.name
 
 = render 'form'
+= button_to "Delete", @category, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger'
