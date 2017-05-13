@@ -11,21 +11,8 @@ class CategoriesController < ApplicationController
   end
 
   def create
-  	# narzedzie do debugowania
-  	# binding.pry
-  	# potem w konsoli mozesz np. params
-  	#
-  	# raise params.to_yaml
-  	# Category.create(category_params)
   	@category = Category.new(category_params)
-  	if @category.valid?
-      @category.save
-	  	flash[:notice] = 'Category created'
-	  	redirect_to @category
-	  else
-	  	flash[:errors] = @category.errors.full_messages
-	  	redirect_back(fallback_location: root_path)
-		end
+  	@category.valid? ? create_category : handle_category_validation_failed
   end
 
   # metody ktore nic nie robia w jednej linijce
@@ -46,6 +33,17 @@ class CategoriesController < ApplicationController
   end
 
   private
+
+  def handle_category_validation_failed
+    flash[:errors] = @category.errors.full_messages
+    redirect_back(fallback_location: root_path)
+  end
+
+  def create_category
+    @category.save
+    flash[:notice] = 'Category created'
+    redirect_to @category
+  end
 
   def fetch_category
     @category = Category.find(params[:id])

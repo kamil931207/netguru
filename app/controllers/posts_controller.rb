@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    return unless post_params[:user_id]== current_user.id.to_s
+    return unless post_params[:user_id] == current_user.id.to_s
     @post = Post.new(post_params)
     @post.valid? ? create_post : handle_post_validation_failed
   end
