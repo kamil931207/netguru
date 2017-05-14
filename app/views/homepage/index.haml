@@ -1,4 +1,17 @@
 .row
   .container
-    %h2 Welcome to Sellito!
-
+    %h2.text-center What are you looking for today?
+    .col-md-6.col-md-offset-3
+      .input-group
+        %input.form-control{ placeholder: "Search...", type: "text" }
+        %span.input-group-btn
+          %button.btn.btn-default{ type: "button" } Go!
+.row
+  .container
+    %h2.text-center Categories:
+    %ul
+      - @categories.each do |category|
+        .checkbox-inline
+          %label
+            %input{ type: "checkbox" }
+            = link_to category.name.capitalize, category
