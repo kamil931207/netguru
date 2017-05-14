@@ -9,9 +9,20 @@
 .row
   .container
     %h2.text-center Categories:
-    %ul
-      - @categories.each do |category|
+    %ul.text-center
+      - @categories.each_slice(5) do |slice|
         .checkbox-inline
-          %label
-            %input{ type: "checkbox" }
-            = link_to category.name.capitalize, category
+        %br
+        - slice.each do |category|
+          %input{ type: "checkbox" }
+          = link_to category.name.capitalize, category
+.row
+  .container
+    %h2.text-center Posts:
+    %ul.text-center
+      - @posts.each do |post|
+        %p
+          = link_to post.title.capitalize, post
+          Categories:
+          - post.categories.each do |category|
+            = category.name + ","
