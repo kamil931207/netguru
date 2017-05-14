@@ -15,4 +15,8 @@ module ApplicationHelper
     categories_link_tag = "<li>#{link_to 'Categories', categories_path}</li>"
     categories_link_tag.html_safe if current_user.is_admin?
   end
+
+  def user_is_admin
+    current_user&.is_admin?
+  end
 end
